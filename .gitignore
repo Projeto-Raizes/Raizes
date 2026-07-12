@@ -34,8 +34,3 @@ yarn-error.log
 dist/
 build/
 .cache/
-
-# === Tooling de IA / skills (não fazem parte do projeto) ===
-.agents/
-.claude/
-skills-lock.json
