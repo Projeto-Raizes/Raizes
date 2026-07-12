@@ -1,0 +1,36 @@
+# === Sistema operacional ===
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+# macOS
+.DS_Store
+.AppleDouble
+# Linux
+*~
+
+# === Editores / IDEs ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# === Logs e temporários ===
+*.log
+*.tmp
+*.temp
+logs/
+
+# === Tooling / dependências (caso venham a ser usados) ===
+node_modules/
+npm-debug.log*
+yarn-error.log
+
+# === Build / cache ===
+dist/
+build/
+.cache/

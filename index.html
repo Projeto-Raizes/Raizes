@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAÍZES — Ibiúna, SP</title>
+<meta name="description" content="RAÍZES — um lugar em Ibiúna, SP, para desfrutar hoje, gerar renda e, no futuro, se tornar uma comunidade para morar. Viver hoje. Investir amanhã. Construir o futuro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════
+   RAÍZES · design tokens
+══════════════════════════════════════════════════════════ */
+:root{
+  --navy:#0C1828; --navy2:#14263C; --gold:#C9A84C; --gold2:#E8C870;
+  --kraft:#F0E4CC; --cream:#FAF7F2; --white:#FEFCF9;
+  --forest:#1A2E0C; --sage:#3A6828;
+  --ink:#16180E; --ink60:rgba(22,24,14,.6); --ink15:rgba(22,24,14,.15);
+  --nav-h:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:"DM Sans",sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ── utilities ── */
+.serif{font-family:"Cormorant Garamond",serif;font-weight:300;}
+.serif em{font-style:italic;color:var(--gold);}
+.mono{font-family:"DM Mono",monospace;}
+.eyebrow{font-family:"DM Mono",monospace;font-size:10.5px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);}
+.rule{width:44px;height:1.5px;background:var(--gold);display:block;margin:16px 0 0;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(24px,5vw,52px);}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+.rv.on{opacity:1;transform:none;}
+
+/* ══════════════════════════════════════════════════════════
+   VIEW TOGGLE — the central mechanism
+   default view = institucional; JS sets body[data-view]
+══════════════════════════════════════════════════════════ */
+body[data-view="inst"] [data-view="inv"]{display:none;}
+body[data-view="inv"]  [data-view="inst"]{display:none;}
+
+/* ══════════════════════════════════════════════════════════
+   TOP BAR
+══════════════════════════════════════════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(18px,5vw,52px);
+  transition:background .4s ease,border-color .4s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{background:rgba(9,18,32,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,168,76,.18);}
+.brand{display:flex;align-items:center;gap:11px;color:var(--gold);}
+.brand .mark{width:26px;height:31px;flex:none;color:var(--gold);}
+.brand .word{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:22px;letter-spacing:.34em;color:#fff;padding-left:.34em;line-height:1;}
+
+/* toggle buttons */
+.toggle{display:flex;gap:4px;padding:4px;border:1px solid rgba(201,168,76,.32);border-radius:2px;background:rgba(9,18,32,.35);}
+.toggle button{
+  font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.62);background:transparent;border:none;cursor:pointer;
+  padding:8px 14px;border-radius:1px;transition:color .25s,background .25s;white-space:nowrap;
+}
+.toggle button:hover{color:#fff;}
+.toggle button.is-active{background:var(--gold);color:var(--navy);font-weight:500;}
+.toggle button:focus-visible{outline:2px solid var(--gold2);outline-offset:2px;}
+
+/* ══════════════════════════════════════════════════════════
+   HERO (shared)
+══════════════════════════════════════════════════════════ */
+#hero{
+  min-height:100vh;position:relative;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;overflow:hidden;
+  padding:calc(var(--nav-h) + 40px) 24px 60px;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 26%, rgba(201,168,76,.10) 0%, transparent 68%),
+    linear-gradient(180deg,#08131f 0%, #0C1828 42%, #10220f 78%, #0b1808 100%);
+}
+/* faint star field */
+.hero-bg::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(1.4px 1.4px at 12% 16%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 28% 9%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.6px 1.6px at 52% 13%, rgba(255,255,255,.65), transparent),
+    radial-gradient(1px 1px at 70% 8%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.4px 1.4px at 86% 18%, rgba(255,255,255,.6), transparent);
+  opacity:.8;
+}
+/* soft horizon of hills */
+.hero-bg::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:34%;
+  background:
+    radial-gradient(ellipse 34% 90% at 16% 100%, #16290c 0%, transparent 62%),
+    radial-gradient(ellipse 40% 100% at 48% 100%, #1a3210 0%, transparent 64%),
+    radial-gradient(ellipse 34% 88% at 82% 100%, #14260c 0%, transparent 60%),
+    linear-gradient(180deg, transparent 0%, #0a1608 78%);
+}
+.hero-inner{position:relative;z-index:2;max-width:760px;}
+.hero-eyebrow{color:var(--gold);opacity:.85;margin-bottom:30px;}
+.hero-mark{width:52px;height:62px;color:var(--gold);margin:0 auto 22px;display:block;opacity:.95;}
+.hero-logo{
+  font-family:"Cormorant Garamond",serif;font-weight:300;
+  font-size:clamp(64px,15vw,148px);letter-spacing:.24em;color:#fff;line-height:.9;
+  padding-left:.24em;
+}
+.hero-tag{
+  font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:300;
+  font-size:clamp(19px,3.2vw,30px);color:var(--gold2);margin-top:20px;letter-spacing:.02em;
+}
+.hero-sub{
+  font-size:clamp(14px,1.7vw,17px);color:rgba(255,255,255,.55);font-weight:300;
+  line-height:1.75;max-width:500px;margin:22px auto 0;
+}
+.hero-seal{
+  font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);margin-top:30px;
+}
+/* 4 pilares */
+.pillars{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(24px,6vw,64px);
+  margin-top:48px;padding-top:40px;border-top:1px solid rgba(255,255,255,.1);
+}
+.pillar{display:flex;flex-direction:column;align-items:center;gap:12px;width:74px;}
+.pillar svg{width:26px;height:26px;color:var(--gold);}
+.pillar span{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66);}
+.hero-scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:9px;}
+.hero-scroll span{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.hero-scroll i{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION SYSTEM
+══════════════════════════════════════════════════════════ */
+.sec{padding:clamp(64px,10vw,116px) 0;}
+.sec--navy{background:var(--navy);}
+.sec--navy2{background:var(--navy2);}
+.sec--forest{background:var(--forest);}
+.sec--kraft{background:var(--kraft);}
+.sec--cream{background:var(--cream);}
+.sec--white{background:var(--white);}
+.dark{color:#fff;}
+.dark .eyebrow{color:var(--gold2);}
+.sec-head{max-width:640px;margin-bottom:56px;}
+.sec-title{font-size:clamp(30px,5vw,52px);margin-top:14px;line-height:1.04;}
+.sec-lead{font-size:clamp(15px,1.7vw,17px);line-height:1.85;color:var(--ink60);font-weight:300;margin-top:22px;}
+.dark .sec-lead{color:rgba(255,255,255,.55);}
+
+/* ── O PROJETO: split (data + scene) ── */
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:0;align-items:stretch;}
+.split .scene{
+  min-height:340px;position:relative;overflow:hidden;border-radius:2px;
+  background:
+    radial-gradient(ellipse 50% 40% at 62% 24%, rgba(232,200,112,.5) 0%, transparent 58%),
+    linear-gradient(180deg,#6f97b8 0%,#8fb2c8 26%,#79a68a 46%,#4f8a3a 60%,#3a6828 74%,#2a4c1c 100%);
+}
+.split .scene::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:38%;
+  background:
+    radial-gradient(ellipse 30% 100% at 20% 100%, #2f5a1e 0%, transparent 60%),
+    radial-gradient(ellipse 36% 100% at 60% 100%, #3a6a24 0%, transparent 60%),
+    radial-gradient(ellipse 30% 100% at 88% 100%, #2a5018 0%, transparent 60%);
+}
+.split .data{background:var(--kraft);padding:clamp(34px,5vw,60px);display:flex;flex-direction:column;justify-content:center;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px 28px;margin-top:40px;}
+.stat-val{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:clamp(34px,4.4vw,46px);color:var(--forest);line-height:1;}
+.stat-val em{font-style:normal;color:var(--gold);}
+.stat-key{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink60);margin-top:8px;}
+
+/* ── A ESTRUTURA: comodidades grid ── */
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:rgba(201,168,76,.22);border:1px solid rgba(201,168,76,.22);}
+.card{background:var(--navy);padding:26px 24px;transition:background .3s;}
+.card:hover{background:var(--navy2);}
+.card .kicker{width:22px;height:1.5px;background:var(--gold);margin-bottom:16px;}
+.card h3{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:20px;color:#fff;margin-bottom:8px;}
+.card p{font-size:13px;line-height:1.7;color:rgba(255,255,255,.48);font-weight:300;}
+
+/* ── MODELO DE USO (3 tempos) & LINHA DO TEMPO ── */
+.tempos{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--ink15);}
+.tempo{background:var(--cream);padding:clamp(28px,3.5vw,40px) clamp(24px,3vw,34px);}
+.tempo .when{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.tempo h3{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:26px;margin-bottom:14px;}
+.tempo h3 em{font-style:italic;color:var(--sage);}
+.tempo p{font-size:14px;line-height:1.8;color:var(--ink60);font-weight:300;}
+
+.timeline{border-top:1px solid var(--ink15);}
+.tl-row{display:grid;grid-template-columns:150px 1fr;gap:clamp(20px,4vw,52px);padding:36px 0;border-bottom:1px solid var(--ink15);align-items:baseline;}
+.tl-when{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);padding-top:6px;}
+.tl-body h3{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:clamp(22px,3vw,28px);margin-bottom:10px;}
+.tl-body p{font-size:15px;line-height:1.8;color:var(--ink60);font-weight:300;max-width:560px;}
+
+/* ── VISÃO DE FUTURO / LEGADO ── */
+.quote{
+  font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:300;
+  font-size:clamp(26px,4.6vw,46px);color:#fff;line-height:1.35;max-width:820px;
+}
+.quote em{color:var(--gold);}
+.legado{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:56px;padding-top:44px;border-top:1px solid rgba(255,255,255,.14);}
+.legado .lg h4{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:20px;color:var(--gold2);margin-bottom:8px;}
+.legado .lg p{font-size:13px;line-height:1.7;color:rgba(255,255,255,.5);font-weight:300;}
+
+/* ══════════════════════════════════════════════════════════
+   INVESTIDORES
+══════════════════════════════════════════════════════════ */
+.disclaimer{
+  background:rgba(201,168,76,.1);border-top:1px solid rgba(201,168,76,.3);border-bottom:1px solid rgba(201,168,76,.3);
+  padding:16px 24px;text-align:center;
+}
+.disclaimer p{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.06em;color:var(--gold);line-height:1.7;max-width:820px;margin:0 auto;}
+.est-tag{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.8;}
+
+/* invest & retorno cards */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.12);}
+.metric{background:var(--navy);padding:32px 26px;}
+.metric .est-tag{margin-bottom:20px;display:block;}
+.metric .big{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:clamp(26px,3vw,34px);color:#fff;line-height:1.1;}
+.metric .lbl{font-size:13px;color:rgba(255,255,255,.5);font-weight:300;margin-top:12px;line-height:1.5;}
+
+/* modelo societário */
+.society{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;background:var(--ink15);}
+.soc{background:var(--white);padding:28px 26px;display:flex;gap:16px;}
+.soc .n{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:30px;color:var(--gold);line-height:1;flex:none;}
+.soc p{font-size:14px;line-height:1.65;color:var(--ink60);font-weight:300;}
+
+/* fases table */
+.phases{width:100%;border-collapse:collapse;}
+.phases td{padding:22px 16px;border-bottom:1px solid var(--ink15);vertical-align:top;}
+.phases tr:first-child td{border-top:2px solid var(--gold);}
+.ph-code{font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:300;color:var(--gold);width:70px;line-height:1;}
+.ph-when{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink60);width:170px;white-space:nowrap;padding-top:6px;}
+.ph-what{font-size:15px;color:var(--ink);font-weight:300;line-height:1.6;padding-top:4px;}
+
+/* motor de receita */
+.rev-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.rev{border:1px solid var(--ink15);background:var(--white);padding:32px 28px;transition:border-color .3s,box-shadow .3s;}
+.rev:hover{border-color:var(--gold);box-shadow:0 12px 44px rgba(22,24,14,.07);}
+.rev .est-tag{color:var(--sage);margin-bottom:16px;display:block;}
+.rev h3{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:24px;margin-bottom:12px;}
+.rev p{font-size:14px;line-height:1.75;color:var(--ink60);font-weight:300;}
+
+/* custo líquido — illustrative bars */
+.bars{display:flex;align-items:flex-end;gap:clamp(10px,3vw,34px);margin-top:20px;max-width:640px;}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.bar-val{font-family:"Cormorant Garamond",serif;font-size:20px;color:var(--forest);margin-bottom:10px;}
+.bar-track{width:100%;height:200px;display:flex;align-items:flex-end;}
+.bar-fill{width:100%;border-radius:2px 2px 0 0;background:linear-gradient(180deg,var(--gold2),var(--gold) 60%,var(--sage));box-shadow:inset 0 1px 0 rgba(255,255,255,.4);}
+.bar-yr{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink60);margin-top:14px;}
+.bar-note{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);margin-top:26px;}
+
+/* próximos passos */
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--ink15);}
+.step{background:var(--white);padding:30px 28px;display:flex;gap:22px;align-items:baseline;}
+.step .n{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:40px;color:var(--gold);line-height:1;flex:none;}
+.step h3{font-size:15px;font-weight:500;margin-bottom:6px;}
+.step p{font-size:13.5px;line-height:1.7;color:var(--ink60);font-weight:300;}
+
+/* ══════════════════════════════════════════════════════════
+   CONTATO (shared) + FOOTER
+══════════════════════════════════════════════════════════ */
+#contato{position:relative;text-align:center;overflow:hidden;padding:clamp(80px,13vw,150px) 24px;}
+.contato-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 60% 50% at 50% 84%, rgba(201,168,76,.16) 0%, transparent 70%),linear-gradient(180deg,#0a1608 0%,#0C1828 60%,#08131f 100%);}
+.contato-inner{position:relative;z-index:2;max-width:660px;margin:0 auto;}
+.contato-inner .rule{margin:0 auto 26px;}
+.contato-inner h2{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:clamp(28px,5vw,52px);color:#fff;line-height:1.18;}
+.contato-inner h2 em{font-style:italic;color:var(--gold);}
+.contato-inner p{font-size:16px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.75;margin:22px auto 38px;max-width:460px;}
+.btn{
+  display:inline-block;font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--navy);background:var(--gold);padding:16px 34px;border-radius:2px;text-decoration:none;transition:background .25s,transform .25s;
+}
+.btn:hover{background:var(--gold2);transform:translateY(-2px);}
+.btn:focus-visible{outline:2px solid var(--gold2);outline-offset:3px;}
+.contato-mail{display:block;margin-top:20px;font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.1em;color:rgba(255,255,255,.45);text-decoration:none;}
+.contato-mail:hover{color:var(--gold2);}
+
+footer{background:#060c14;padding:26px clamp(24px,5vw,52px);text-align:center;}
+footer p{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);line-height:1.8;}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════ */
+@media(max-width:820px){
+  .split{grid-template-columns:1fr;}
+  .split .scene{min-height:240px;}
+  .tempos,.metrics,.rev-row,.steps,.legado{grid-template-columns:1fr;}
+  .tl-row{grid-template-columns:1fr;gap:8px;}
+  .phases td{display:block;border-bottom:none;padding:4px 0;}
+  .phases tr{display:block;border-bottom:1px solid var(--ink15);padding:18px 0;}
+  .phases tr:first-child td{border-top:none;}
+  .phases tr:first-child{border-top:2px solid var(--gold);}
+  .ph-code{font-size:24px;}
+}
+@media(max-width:560px){
+  .brand .word{font-size:18px;letter-spacing:.26em;}
+  .toggle button{padding:8px 10px;font-size:10px;}
+  .legado{grid-template-columns:1fr 1fr;}
+  .bars{gap:8px;}
+}
+@media(max-width:400px){
+  .metrics{grid-template-columns:1fr;}
+  .brand .word{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .rv{opacity:1;transform:none;transition:none;}
+  .btn:hover{transform:none;}
+}
+</style>
+</head>
+<body data-view="inst">
+
+<!-- ════════════ TOP BAR ════════════ -->
+<nav class="nav">
+  <a class="brand" href="#hero" aria-label="RAÍZES — início">
+    <!-- tree + roots mark: canopy above the line, roots mirrored below -->
+    <svg class="mark" viewBox="0 0 48 56" fill="none" aria-hidden="true">
+      <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="24" y1="18" x2="24" y2="38"/>
+        <path d="M24 22 C24 15 18 12 15 7"/>
+        <path d="M24 22 C24 15 30 12 33 7"/>
+        <path d="M24 19 L24 4"/>
+        <path d="M24 34 C24 41 18 44 15 49"/>
+        <path d="M24 34 C24 41 30 44 33 49"/>
+        <path d="M24 37 L24 52"/>
+      </g>
+      <line x1="11" y1="28" x2="37" y2="28" stroke="currentColor" stroke-width="1" opacity=".4"/>
+      <g fill="currentColor">
+        <circle cx="15" cy="7" r="1.5"/><circle cx="33" cy="7" r="1.5"/><circle cx="24" cy="4" r="1.5"/>
+      </g>
+    </svg>
+    <span class="word">RAÍZES</span>
+  </a>
+  <div class="toggle" role="group" aria-label="Escolha a visão do site">
+    <button type="button" data-set-view="inst" aria-pressed="true">Institucional</button>
+    <button type="button" data-set-view="inv"  aria-pressed="false">Investidores</button>
+  </div>
+</nav>
+
+<!-- ════════════ HERO (shared) ════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow eyebrow rv">Ibiúna, SP · 5.866 m² · a 90 minutos de São Paulo</p>
+    <svg class="hero-mark rv" viewBox="0 0 48 56" fill="none" aria-hidden="true">
+      <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="24" y1="18" x2="24" y2="38"/>
+        <path d="M24 22 C24 15 18 12 15 7"/><path d="M24 22 C24 15 30 12 33 7"/><path d="M24 19 L24 4"/>
+        <path d="M24 34 C24 41 18 44 15 49"/><path d="M24 34 C24 41 30 44 33 49"/><path d="M24 37 L24 52"/>
+      </g>
+      <line x1="11" y1="28" x2="37" y2="28" stroke="currentColor" stroke-width="1" opacity=".4"/>
+      <g fill="currentColor"><circle cx="15" cy="7" r="1.5"/><circle cx="33" cy="7" r="1.5"/><circle cx="24" cy="4" r="1.5"/></g>
+    </svg>
+    <h1 class="hero-logo rv">RAÍZES</h1>
+    <p class="hero-tag rv">Viver hoje. Investir amanhã. Construir o futuro.</p>
+    <p class="hero-sub rv">Um lugar para desfrutar hoje, gerar renda e, no futuro, se tornar uma comunidade para morar.</p>
+    <div class="pillars rv">
+      <div class="pillar">
+        <!-- natureza: folha -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4C11 5 4 12 4 20c8 0 15-7 16-16Z"/><path d="M4 20 14 10"/></svg>
+        <span>Natureza</span>
+      </div>
+      <div class="pillar">
+        <!-- autonomia: sol -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>
+        <span>Autonomia</span>
+      </div>
+      <div class="pillar">
+        <!-- convivência: pessoas -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 20c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M15.5 20c0-2.2 1.3-3.7 3-4"/></svg>
+        <span>Convivência</span>
+      </div>
+      <div class="pillar">
+        <!-- propósito: bússola -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6.5 14.5 12 12 17.5 9.5 12Z"/></svg>
+        <span>Propósito</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true"><span>descer</span><i></i></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     VISÃO INSTITUCIONAL
+═══════════════════════════════════════════════════════════ -->
+
+<!-- ── O PROJETO / O LUGAR ── -->
+<section class="sec sec--kraft" data-view="inst">
+  <div class="wrap">
+    <div class="split">
+      <div class="scene rv" aria-hidden="true"></div>
+      <div class="data">
+        <p class="eyebrow rv">O projeto · O lugar</p>
+        <span class="rule rv"></span>
+        <h2 class="serif sec-title rv" style="margin-top:16px;">Ibiúna, <em>terra fértil</em><br>e microclima raro</h2>
+        <p class="sec-lead rv" style="max-width:none;">Na zona rural de Ibiúna, a 90 minutos de São Paulo — solo fértil, neblina matinal e o silêncio de verdade. Um terreno pensado para viver, receber e produzir ao mesmo tempo.</p>
+        <div class="stat-grid">
+          <div class="rv"><div class="stat-val">5.866<em> m²</em></div><div class="stat-key">Área total</div></div>
+          <div class="rv"><div class="stat-val">~804<em> m²</em></div><div class="stat-key">Área construída</div></div>
+          <div class="rv"><div class="stat-val"><em>+</em>4.500<em> m²</em></div><div class="stat-key">Área permeável</div></div>
+          <div class="rv"><div class="stat-val">90<em> min</em></div><div class="stat-key">de São Paulo</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── A ESTRUTURA ── -->
+<section class="sec sec--navy dark" data-view="inst">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">A estrutura</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Estrutura completa para<br><em>viver, receber e rentabilizar</em></h2>
+    </div>
+    <div class="grid-cards rv">
+      <div class="card"><div class="kicker"></div><h3>Casa principal + lazer</h3><p>O coração do projeto: cozinha, convívio e varanda com vista para o jardim.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Piscina estilo prainha</h3><p>Borda molhada e entrada suave, para relaxar como quem chega à praia.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Sauna com acesso à piscina</h3><p>Sauna seca com passagem direta para a água, integrada ao lazer.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Quadra de beach tênis</h3><p>Areia iluminada e cercada por vegetação, para jogar a qualquer hora.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Área infantil</h3><p>Espaço seguro de brincar, próximo à piscina e à quadra.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Horta orgânica</h3><p>Canteiros para cultivar temperos, folhas e legumes o ano todo.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Pomar</h3><p>Árvores frutíferas para colher, consumir e compartilhar.</p></div>
+      <div class="card"><div class="kicker"></div><h3>6 chalés privativos</h3><p>Cerca de 35 m² cada, com quarto, banheiro e varanda própria.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Canil</h3><p>Espaço confortável e seguro para os cães, integrado à natureza.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Galinheiro</h3><p>Ovos frescos e integração real com a produção orgânica.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Estacionamento</h3><p>Vagas amplas com piso permeável e drenagem natural.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Trilhas e contemplação</h3><p>Caminhos para andar, respirar e observar a mata com calma.</p></div>
+      <div class="card"><div class="kicker"></div><h3>Cerca viva</h3><p>Vegetação em todo o perímetro, garantindo privacidade natural.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MODELO DE USO EM 3 TEMPOS ── -->
+<section class="sec sec--cream" data-view="inst">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Modelo de uso</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Um projeto em <em>três tempos</em></h2>
+    </div>
+    <div class="tempos rv">
+      <div class="tempo"><p class="when">Hoje</p><h3 class="serif">Casa de <em>campo</em></h3><p>Uma casa de campo compartilhada pelos sócios — para descansar, receber e reconectar com a natureza.</p></div>
+      <div class="tempo"><p class="when">Amanhã</p><h3 class="serif">Geração de <em>renda</em></h3><p>Hospedagem e eventos aproveitam a estrutura nas janelas livres, transformando o lugar em fonte de renda.</p></div>
+      <div class="tempo"><p class="when">Futuro</p><h3 class="serif">Comunidade para <em>morar</em></h3><p>Uma comunidade para morar, trabalhar e viver com mais propósito e qualidade de vida.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LINHA DO TEMPO — 20 ANOS ── -->
+<section class="sec sec--white" data-view="inst">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Linha do tempo · 20 anos</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Do primeiro dia<br><em>ao legado</em></h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-row rv"><div class="tl-when">Ano 0–3</div><div class="tl-body"><h3 class="serif">Construção</h3><p>Aquisição do terreno, casa principal, chalés e infraestrutura. O projeto nasce e já pode ser desfrutado pelos sócios.</p></div></div>
+      <div class="tl-row rv"><div class="tl-when">Ano ~1–20</div><div class="tl-body"><h3 class="serif">Operação comercial autossustentável</h3><p>Hospedagem, eventos e day-use cobrem os custos e geram renda, reduzindo progressivamente o aporte líquido dos fundadores.</p></div></div>
+      <div class="tl-row rv"><div class="tl-when">~Ano 20</div><div class="tl-body"><h3 class="serif">Transição para moradia</h3><p>A estrutura amadurece e se transforma em uma comunidade para morar, viver e trabalhar com mais qualidade de vida.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VISÃO DE FUTURO / LEGADO ── -->
+<section class="sec sec--forest dark" data-view="inst">
+  <div class="wrap">
+    <p class="eyebrow rv">Visão de futuro · Legado</p>
+    <span class="rule rv"></span>
+    <p class="quote serif rv" style="margin-top:26px;">Mais que um investimento,<br>uma <em>escolha de vida.</em></p>
+    <p class="sec-lead rv" style="max-width:640px;margin-top:26px;">Transformar este lugar numa comunidade intencional, alinhada à natureza — onde qualidade de vida, conexão real e bem-estar constroem um legado para as próximas gerações.</p>
+    <div class="legado rv">
+      <div class="lg"><h4>Qualidade de vida</h4><p>Todos os dias, com mais calma e presença.</p></div>
+      <div class="lg"><h4>Conexão real</h4><p>Com as pessoas e com a natureza ao redor.</p></div>
+      <div class="lg"><h4>Saúde e bem-estar</h4><p>Corpo, mente e alma em equilíbrio.</p></div>
+      <div class="lg"><h4>Legado</h4><p>Para a família e para o futuro.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     VISÃO INVESTIDORES
+═══════════════════════════════════════════════════════════ -->
+
+<!-- ── aviso + tese ── -->
+<div class="disclaimer" data-view="inv">
+  <p>Documento conceitual. As cifras são estimativas sujeitas a validação e não constituem promessa de retorno.</p>
+</div>
+<section class="sec sec--kraft" data-view="inv">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Tese de investimento</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Um ativo real que<br><em>se paga sozinho</em></h2>
+      <p class="sec-lead rv">Comprar um ativo real — um terreno rural com potencial de valorização — e operá-lo comercialmente para que se autossustente. A renda reduz o custo líquido do aporte ao longo de 20 anos, até que o lugar se torne moradia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── investimento & retorno ── -->
+<section class="sec sec--navy dark" data-view="inv">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Investimento &amp; retorno</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Os números <em>estimados</em></h2>
+    </div>
+    <div class="metrics rv">
+      <div class="metric"><span class="est-tag">Estimativa</span><div class="big">R$ 1,34M – 1,65M</div><div class="lbl">Investimento total do projeto</div></div>
+      <div class="metric"><span class="est-tag">Estimativa</span><div class="big">R$ 447k – 550k</div><div class="lbl">Valor médio por fundador (2–3 pessoas)</div></div>
+      <div class="metric"><span class="est-tag">Estimativa</span><div class="big">R$ 120k – 200k<span style="font-size:14px;color:rgba(255,255,255,.5);"> /ano</span></div><div class="lbl">Retorno com hospedagem</div></div>
+      <div class="metric"><span class="est-tag">Estimativa</span><div class="big">5 – 7 anos</div><div class="lbl">Payback estimado</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── modelo societário ── -->
+<section class="sec sec--white" data-view="inv">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Modelo societário</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Uma holding<br><em>simples e transparente</em></h2>
+    </div>
+    <div class="society rv">
+      <div class="soc"><span class="n">1</span><p>Constituição de uma <strong>Holding (Ltda.)</strong>, dona do terreno e da operação.</p></div>
+      <div class="soc"><span class="n">2</span><p>Cotas <strong>proporcionais ao investimento</strong> de cada fundador.</p></div>
+      <div class="soc"><span class="n">3</span><p>Direitos e deveres definidos em <strong>acordo de sócios</strong>.</p></div>
+      <div class="soc"><span class="n">4</span><p>Estrutura que <strong>facilita entrada, saída e sucessão</strong>.</p></div>
+      <div class="soc"><span class="n">5</span><p><strong>Gestão profissional</strong> e transparente ao longo do tempo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── fases de implantação ── -->
+<section class="sec sec--cream" data-view="inv">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Fases de implantação</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Construir <em>com método</em></h2>
+    </div>
+    <table class="phases rv">
+      <tr><td class="ph-code">F1</td><td class="ph-when">0–6 meses</td><td class="ph-what">Terreno + Casa Principal + Infraestrutura</td></tr>
+      <tr><td class="ph-code">F2</td><td class="ph-when">6–15 meses</td><td class="ph-what">Chalés 1–3 + Piscina + Sauna + Quadra</td></tr>
+      <tr><td class="ph-code">F3</td><td class="ph-when">15–24 meses</td><td class="ph-what">Chalés 4–6 + Horta + Pomar + Canil + Galinheiro</td></tr>
+      <tr><td class="ph-code">F4</td><td class="ph-when">24–36 meses</td><td class="ph-what">Chalé completo + Acabamentos + Paisagismo</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ── motor de receita ── -->
+<section class="sec sec--white" data-view="inv">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Motor de receita</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Três linhas que<br><em>sustentam o projeto</em></h2>
+    </div>
+    <div class="rev-row">
+      <div class="rev rv"><span class="est-tag">Linha 01</span><h3 class="serif">Hospedagem / temporada</h3><p>Diárias via Airbnb e Booking nas janelas livres da agenda, aproveitando os chalés e a casa principal.</p></div>
+      <div class="rev rv"><span class="est-tag">Linha 02</span><h3 class="serif">Eventos</h3><p>Casamentos, retiros e encontros corporativos usando a estrutura completa e o cenário natural.</p></div>
+      <div class="rev rv"><span class="est-tag">Linha 03</span><h3 class="serif">Day-use</h3><p>Uso da estrutura de lazer por visitantes durante o dia, sem pernoite, gerando receita adicional.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── evolução do custo líquido (ilustrativo) ── -->
+<section class="sec sec--kraft" data-view="inv">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Evolução do custo líquido</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">A renda <em>amortiza</em> o aporte</h2>
+      <p class="sec-lead rv">Conforme a operação comercial avança, a renda amortiza progressivamente o aporte. Ao chegar na moradia (~ano 20), o custo líquido efetivo cai bastante.</p>
+    </div>
+    <div class="bars rv">
+      <div class="bar"><div class="bar-val">100%</div><div class="bar-track"><div class="bar-fill" style="height:100%"></div></div><div class="bar-yr">Ano 0</div></div>
+      <div class="bar"><div class="bar-val">78%</div><div class="bar-track"><div class="bar-fill" style="height:78%"></div></div><div class="bar-yr">Ano 5</div></div>
+      <div class="bar"><div class="bar-val">55%</div><div class="bar-track"><div class="bar-fill" style="height:55%"></div></div><div class="bar-yr">Ano 10</div></div>
+      <div class="bar"><div class="bar-val">34%</div><div class="bar-track"><div class="bar-fill" style="height:34%"></div></div><div class="bar-yr">Ano 15</div></div>
+      <div class="bar"><div class="bar-val">15%</div><div class="bar-track"><div class="bar-fill" style="height:15%"></div></div><div class="bar-yr">Ano 20</div></div>
+    </div>
+    <p class="bar-note rv">Ilustrativo · percentual do aporte remanescente · não representa valores reais</p>
+  </div>
+</section>
+
+<!-- ── próximos passos ── -->
+<section class="sec sec--navy2 dark" data-view="inv">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Próximos passos</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Do conceito<br><em>à Fase 1</em></h2>
+    </div>
+    <div class="steps rv">
+      <div class="step"><span class="n">1</span><div><h3>Formar o grupo</h3><p>Reunir os 2 a 3 fundadores e alinhar expectativas antes de qualquer aporte.</p></div></div>
+      <div class="step"><span class="n">2</span><div><h3>Due diligence do imóvel</h3><p>Verificar documentação, acesso, água e situação ambiental do terreno.</p></div></div>
+      <div class="step"><span class="n">3</span><div><h3>Constituir a holding</h3><p>Formalizar a estrutura jurídica antes da compra, com cotas definidas.</p></div></div>
+      <div class="step"><span class="n">4</span><div><h3>Iniciar a Fase 1</h3><p>Aquisição do terreno, casa principal e infraestrutura para começar a viver.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CONTATO (shared) ════════════ -->
+<section id="contato">
+  <div class="contato-bg" aria-hidden="true"></div>
+  <div class="contato-inner">
+    <p class="eyebrow rv" style="margin-bottom:22px;">Vamos conversar</p>
+    <span class="rule rv"></span>
+    <h2 class="rv">Buscamos <em>2 a 3 fundadores</em><br>para construir algo extraordinário juntos.</h2>
+    <p class="rv">Se este projeto ressoa com você, o próximo passo é uma conversa. Sem compromisso — apenas para se conhecer e imaginar o que é possível.</p>
+    <a class="btn rv" href="mailto:contato@projetoraizes.com.br?subject=Projeto%20RA%C3%8DZES">Fale conosco</a>
+    <a class="contato-mail rv" href="mailto:contato@projetoraizes.com.br">contato@projetoraizes.com.br</a>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER (shared) ════════════ -->
+<footer>
+  <p>RAÍZES · Ibiúna, SP · Projeto conceitual 2026 · Estimativas sujeitas a validação</p>
+</footer>
+
+<script>
+(function(){
+  const body = document.body;
+  const KEY  = 'raizes-view';
+  const btns = document.querySelectorAll('[data-set-view]');
+
+  /* collect reveal elements + set staggered delay by sibling order */
+  const rvs = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  rvs.forEach(function(el){
+    const sibs = Array.prototype.slice.call(el.parentElement.querySelectorAll(':scope > .rv'));
+    el.style.transitionDelay = (sibs.indexOf(el) * 70) + 'ms';
+  });
+
+  /* reveal on scroll — never un-reveal, so toggled sections stay shown */
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('on'); });
+  }, { threshold:.12, rootMargin:'0px 0px -8% 0px' });
+  rvs.forEach(function(el){ io.observe(el); });
+
+  /* guarantee above-the-fold reveals after a view switch / on load */
+  function revealVisible(){
+    requestAnimationFrame(function(){
+      rvs.forEach(function(el){
+        if(el.offsetParent === null) return;               // display:none -> skip
+        if(el.getBoundingClientRect().top < window.innerHeight * 0.96) el.classList.add('on');
+      });
+    });
+  }
+
+  /* apply a view: set attribute, update buttons, optionally scroll to top */
+  function apply(view, doScroll){
+    body.setAttribute('data-view', view);
+    btns.forEach(function(b){
+      const on = b.getAttribute('data-set-view') === view;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    if(doScroll) window.scrollTo({ top:0, behavior:'smooth' });
+    revealVisible();
+  }
+
+  /* init from localStorage (default: institucional) */
+  let start = 'inst';
+  try { const s = localStorage.getItem(KEY); if(s === 'inst' || s === 'inv') start = s; } catch(e){}
+  apply(start, false);
+
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      const v = b.getAttribute('data-set-view');
+      try { localStorage.setItem(KEY, v); } catch(e){}
+      apply(v, true);
+    });
+  });
+
+  /* top bar: solid background once scrolled off the hero */
+  const nav = document.querySelector('.nav');
+  function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 40); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive:true });
+})();
+</script>
+</body>
+</html>

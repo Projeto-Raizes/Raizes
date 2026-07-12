@@ -1,0 +1,66 @@
+{
+  "referencia": "8285",
+  "fonte_url": "https://www.delmassoimoveis.com.br/imovel/8285",
+  "coletado_em": "2026-07-12",
+  "titulo": "Chácara de 24 mil m² com duas casas e lago!",
+  "tipo": "Chácara",
+  "cidade": "Ibiúna",
+  "estado": "SP",
+  "endereco_exato_publicado": false,
+  "endereco_imobiliaria": "Rod. Bunjiro Nakao, KM 65,5, Ibiúna - SP, CEP 18150-000",
+  "area_terreno_m2": 24000,
+  "preco_venda_brl": 1350000,
+  "preco_por_m2_brl": 56.25,
+  "iptu_brl": 400,
+  "condominio_brl": 0,
+  "casas": 2,
+  "casa_caseiro": true,
+  "quartos": 11,
+  "suites": 5,
+  "banheiros": 11,
+  "salas": 3,
+  "vagas_estimadas": 20,
+  "estrutura": [
+    "Piscina",
+    "Área gourmet",
+    "Salão de festas",
+    "Campo de futebol",
+    "2 Lagos",
+    "Canil e galinheiro",
+    "Pomar e horta",
+    "Casa de caseiro com 4 cômodos",
+    "Forno de pizza/lenha",
+    "Churrasqueira",
+    "Gazebo",
+    "Área de jogos (pebolim, trampolim)"
+  ],
+  "infra": [
+    "Acesso ao asfalto",
+    "Rua iluminada",
+    "Internet",
+    "Comércio local próximo",
+    "Próximo à rodovia"
+  ],
+  "terreno": {
+    "relevo": "suavemente ondulado a inclinado; núcleo construído em platô elevado",
+    "drenagem": "boa (casas em pilotis/embasamento elevado)",
+    "agua": "2 lagos naturais + piscina",
+    "vegetacao": "gramado/pasto no miolo, jardins ornamentais, palmeiras imperiais, pomar/horta, mata nativa nas bordas e encostas",
+    "areas_abertas": "grandes faixas de pasto limpo, planas a suaves, com potencial de expansão",
+    "vista": "morros e lavouras ao fundo; boa insolação",
+    "estacao_fotos": "seca/inverno (capim amarelado)"
+  },
+  "corretora": {
+    "nome": "Delmasso Imóveis",
+    "creci": "25.910-J",
+    "telefone": "(15) 3241-2846",
+    "whatsapp": "+55 15 98178-0158",
+    "email": "contato@delmassoimoveis.com.br"
+  },
+  "fotos": {
+    "total": 55,
+    "pasta": "./fotos/",
+    "padrao_nome": "foto-01.jpg .. foto-55.jpg",
+    "cdn_base": "https://cdn.vistahost.com.br/delmasso/vista.imobi/fotos/8285/"
+  }
+}
