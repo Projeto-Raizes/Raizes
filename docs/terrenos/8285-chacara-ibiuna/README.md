@@ -195,6 +195,7 @@ Vídeo enviado pelo cliente (`videos/…mp4`, 119 s, tour de drone da **GA Fotog
 
 ### Arquivos de vídeo
 - `video-frames/mapa-interpretado.jpg` — **frame nadir com zonas e caimento anotados** (principal referência de implantação)
+- `video-frames/implantacao-solar.jpg` — **esboço conceitual do programa Solar sobreposto ao terreno** (chalés, beach tennis, deck/fogo, yoga, lago→piscina natural, horta/pomar, reserva mata)
 - `video-frames/limite-aereo.jpg` e `limite-aereo-2.jpg` — contorno vermelho original
 - `video-frames/aereo-conjunto-lago.jpg` — conjunto + lago (orbital)
 - `video-frames/aereo-casas.jpg` — casas vistas de cima
