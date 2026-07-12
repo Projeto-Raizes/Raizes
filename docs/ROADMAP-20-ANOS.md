@@ -7,6 +7,16 @@
 O projeto se desenvolve em **3 grandes fases**, seguindo o modelo de uso em 3 tempos:
 **HOJE** (casa de campo dos sócios) → **AMANHÃ** (renda) → **FUTURO** (moradia).
 
+> **Atualização v2 — a Fase 1 depende do cenário de aquisição** (ver [`CUSTOS-CONSTRUCAO.md`](./CUSTOS-CONSTRUCAO.md)
+> e [`MODELO-FINANCEIRO.md`](./MODELO-FINANCEIRO.md)):
+> - **Cenário recomendado — comprar chácara pronta:** Fase 1 vira **aquisição + adaptação em ~15 meses** (E1–E3),
+>   e a operação (Fase 2) começa quase junto. Investimento ~R$ 1,80–2,24 M.
+> - **Cenário alternativo — construir do zero:** Fase 1 = obra de **24–36 meses** (F1–F4 abaixo). Investimento ~R$ 2,55–3,35 M.
+>
+> As sub-fases F1–F4 descritas adiante detalham o **cenário de construção**. O payback operacional real foi
+> revisado para **~12–22 anos** (o "ano 5–7" do board não se sustenta com custos reais) — o foco passa a ser
+> **autossustentabilidade + patrimônio + moradia**.
+
 ---
 
 ## Tabela-resumo das fases
@@ -14,7 +24,7 @@ O projeto se desenvolve em **3 grandes fases**, seguindo o modelo de uso em 3 te
 | Fase | Período | Objetivo | Marco principal |
 |---|---|---|---|
 | **1 — Construção** | Ano 0–3 | Implantar o imóvel e a estrutura completa | Estrutura pronta e operacional (F1–F4 concluídas) |
-| **2 — Operação comercial** | Ano ~1–20 | Autossustentabilidade + amortização do custo por cota | Payback do investimento (ano ~5–7) |
+| **2 — Operação comercial** | Ano ~1–20 | Autossustentabilidade + amortização do custo por cota | Operação madura e autossustentável (amortização progressiva; payback operacional ~12–22 anos) |
 | **3 — Transição para moradia** | Ano ~18–20+ | Converter em comunidade residente permanente | Mudança de uso e início da moradia |
 
 ---

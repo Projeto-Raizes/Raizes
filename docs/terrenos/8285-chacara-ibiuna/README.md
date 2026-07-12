@@ -170,10 +170,59 @@ Arquivos em `./fotos/foto-01.jpg` … `foto-55.jpg`.
 
 ---
 
-## 6. Arquivos nesta pasta
+## 6. Vídeo aéreo (drone) — limite, implantação e relevo
+
+Vídeo enviado pelo cliente (`videos/…mp4`, 119 s, tour de drone da **GA Fotografia** — F: (11) 9 8909-2888). Os **primeiros ~7 s mostram a vista a pino (nadir) com o LIMITE DO TERRENO marcado em vermelho**. Frames-chave salvos em `video-frames/`.
+
+### Formato e limites do lote
+- Formato em **cunha / triângulo arredondado**: **ápice a Oeste** (ponta junto à estrada) e **base larga a Leste** (voltada para a vizinhança mais ocupada).
+- **Estrada (acesso) corre no limite Oeste/Sudoeste** — via rural asfaltada.
+- Limite Leste faz divisa com um **bairro de chácaras** já bem ocupado (casas, telhados, algumas piscinas).
+- Limite Norte/Oeste com **mata**.
+
+### Implantação interna (o que está onde)
+- **Núcleo construído** (2 casas + piscina + salão gourmet + gazebo) na **porção Norte-Central**, na parte mais **alta** do terreno.
+- **Lago/açude grande** na **porção Sul-Central** — corpo d'água de água barrenta/esverdeada; é o **ponto baixo** para onde o terreno drena. Há área de **várzea/mais úmida** ao redor.
+- **Área aberta aproveitável** (pasto/gramado limpo) na faixa Central-Leste — livre para expansão.
+- **Mata** concentrada a Oeste (ápice) e nas bordas.
+
+### Relevo (leitura)
+- Confirma a leitura das fotos: **caimento do núcleo construído (alto) em direção ao lago (baixo)**. Boa drenagem natural; água acumula no açude.
+- Declive suave e trabalhável; núcleo já implantado em patamar com vista.
+
+### Acesso
+- Entrada por **portão de madeira** (com buganvília) → **alameda/estrada interna de concreto** que corta o gramado até as casas (frames t040–t048).
+
+### Arquivos de vídeo
+- `video-frames/mapa-interpretado.jpg` — **frame nadir com zonas e caimento anotados** (principal referência de implantação)
+- `video-frames/limite-aereo.jpg` e `limite-aereo-2.jpg` — contorno vermelho original
+- `video-frames/aereo-conjunto-lago.jpg` — conjunto + lago (orbital)
+- `video-frames/aereo-casas.jpg` — casas vistas de cima
+- `video-frames/entrada-portao.jpg` — portão de entrada
+- `video-frames/piscina-gourmet.jpg` — piscina + gourmet
+
+> ⚠️ **Curvas de nível reais** exigem coordenadas/levantamento topográfico (não há no material). O relevo aqui é **interpretação qualitativa** do drone + fotos. Para o projeto, recomenda-se levantamento planialtimétrico.
+
+---
+
+## 7. Adequação ao projeto **Solar** (resumo)
+
+Comparação completa no artifact visual. Em síntese:
+
+- Solar precisa de **~5.850 m²** de programa; este terreno tem **24.000 m²** → **~4× a área**: cabe o Solar inteiro **com folga** (expansão, mais reserva, mais chalés).
+- Terreno **já entrega** vários itens do programa: casa sede (2 casas), salão gourmet, piscina, pomar, campo (→ beach tennis), **mata nativa** (reserva), **lagos** (potencial "piscina natural"/bem-estar/água p/ agrofloresta).
+- Preço **R$ 56/m²** (R$ 1,35 mi) vs. meta Solar **R$ 76/m²** → dentro/abaixo da meta por m².
+- Mesma região (Ibiúna, zona rural, ~70 km de SP).
+
+---
+
+## 8. Arquivos nesta pasta
 
 - `README.md` — este documento
 - `dados.json` — dados estruturados do imóvel
 - `fotos/foto-01.jpg` … `foto-55.jpg` — 55 fotos originais (~9,8 MB)
+- `fotos-manifest.json` — mapeamento foto → URL do CDN
+- `video-frames/` — frames curados do vídeo de drone + mapa interpretado
+- `videos/…mp4` — vídeo original (drone, GA Fotografia)
 
-*Coleta via Playwright (render do site Wix + captura das imagens no CDN Vista). Fotos com marca d'água "Delmasso" (fonte).*
+*Coleta via Playwright (render do site Wix + captura das imagens no CDN Vista) e OpenCV (frames do vídeo). Fotos com marca d'água "Delmasso"; vídeo por GA Fotografia (fontes).*
