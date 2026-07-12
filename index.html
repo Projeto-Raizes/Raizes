@@ -13,7 +13,7 @@
    RAÍZES · design tokens
 ══════════════════════════════════════════════════════════ */
 :root{
-  --navy:#0C1828; --navy2:#14263C; --gold:#C9A84C; --gold2:#E8C870;
+  --navy:#0C1828; --navy2:#14263C; --gold:#C9A84C; --gold2:#E8C870; --gold-ink:#8a6d1f;
   --kraft:#F0E4CC; --cream:#FAF7F2; --white:#FEFCF9;
   --forest:#1A2E0C; --sage:#3A6828;
   --ink:#16180E; --ink60:rgba(22,24,14,.6); --ink15:rgba(22,24,14,.15);
@@ -42,9 +42,11 @@ body{
 /* ══════════════════════════════════════════════════════════
    VIEW TOGGLE — the central mechanism
    default view = institucional; JS sets body[data-view]
+   3 views: inst · inv · ideia  → hide any section not matching
 ══════════════════════════════════════════════════════════ */
-body[data-view="inst"] [data-view="inv"]{display:none;}
-body[data-view="inv"]  [data-view="inst"]{display:none;}
+body[data-view="inst"]  [data-view]:not([data-view="inst"]),
+body[data-view="inv"]   [data-view]:not([data-view="inv"]),
+body[data-view="ideia"] [data-view]:not([data-view="ideia"]){display:none;}
 
 /* ══════════════════════════════════════════════════════════
    TOP BAR
@@ -286,6 +288,53 @@ footer{background:#060c14;padding:26px clamp(24px,5vw,52px);text-align:center;}
 footer p{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);line-height:1.8;}
 
 /* ══════════════════════════════════════════════════════════
+   IDEALIZAÇÃO — o terreno
+══════════════════════════════════════════════════════════ */
+/* status pills */
+.pill{display:inline-block;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:100px;white-space:nowrap;}
+.pill.ok{background:rgba(58,104,40,.14);color:#2f5a1f;}
+.pill.mid{background:rgba(201,168,76,.2);color:var(--gold-ink);}
+.pill.build{background:rgba(169,85,47,.14);color:#8f4526;}
+
+/* figure (aerial map / implantação) */
+.figure{margin:0;border:1px solid var(--ink15);background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 12px 44px rgba(22,24,14,.06);}
+.figure img{display:block;width:100%;height:auto;}
+.figure figcaption{font-family:"DM Mono",monospace;font-size:11.5px;letter-spacing:.03em;color:var(--ink60);padding:14px 18px;border-top:1px solid var(--ink15);line-height:1.65;}
+
+/* zonas — programa RAÍZES × realidade do terreno */
+.zones{display:grid;gap:2px;background:var(--ink15);border:1px solid var(--ink15);}
+.zone{background:var(--white);padding:clamp(22px,3vw,34px);}
+.zone-top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--ink15);}
+.zone-num{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.2em;color:var(--gold-ink);}
+.zone-name{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:24px;color:var(--forest);}
+.zone-name span{display:block;font-family:"DM Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink60);margin-top:4px;}
+.zone-top .pill{margin-left:auto;}
+.zrows{display:grid;grid-template-columns:1fr 1fr auto;gap:12px 22px;align-items:baseline;}
+.zrow-h{font-family:"DM Mono",monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink60);}
+.z-want{font-size:13.5px;line-height:1.55;color:var(--ink);}
+.z-have{font-size:13.5px;line-height:1.55;color:var(--ink60);}
+
+/* leitura do terreno — cards claros */
+.read-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px;background:var(--ink15);border:1px solid var(--ink15);}
+.read{background:var(--white);padding:26px 24px;}
+.read .tag{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:10px;}
+.read h3{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:20px;color:var(--forest);margin-bottom:8px;line-height:1.2;}
+.read p{font-size:13.5px;line-height:1.7;color:var(--ink60);font-weight:300;}
+
+/* pontos a verificar */
+.checks{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px;}
+.check{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:8px 16px;}
+
+/* galeria de fotos */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;}
+.gallery figure{margin:0;position:relative;overflow:hidden;border-radius:2px;background:var(--navy2);aspect-ratio:4/3;}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+.gallery figure:hover img{transform:scale(1.06);}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.03em;color:#fff;background:linear-gradient(transparent,rgba(6,12,20,.86));padding:26px 12px 9px;line-height:1.4;}
+.src-note{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.04em;color:rgba(255,255,255,.4);line-height:1.9;margin-top:40px;text-align:center;}
+.src-note a{color:rgba(255,255,255,.6);}
+
+/* ══════════════════════════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════════════════════════ */
 @media(max-width:820px){
@@ -298,10 +347,15 @@ footer p{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.16em;t
   .phases tr:first-child td{border-top:none;}
   .phases tr:first-child{border-top:2px solid var(--gold);}
   .ph-code{font-size:24px;}
+  .zrows{grid-template-columns:1fr;gap:5px;}
+  .zrow-h{display:none;}
+  .z-want{font-weight:400;}
+  .zone-top .pill{margin-left:0;}
 }
 @media(max-width:560px){
   .brand .word{font-size:18px;letter-spacing:.26em;}
-  .toggle button{padding:8px 10px;font-size:10px;}
+  .toggle{gap:2px;padding:3px;}
+  .toggle button{padding:7px 8px;font-size:9.5px;letter-spacing:.08em;}
   .legado{grid-template-columns:1fr 1fr;}
   .bars{gap:8px;}
 }
@@ -340,8 +394,9 @@ footer p{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.16em;t
     <span class="word">RAÍZES</span>
   </a>
   <div class="toggle" role="group" aria-label="Escolha a visão do site">
-    <button type="button" data-set-view="inst" aria-pressed="true">Institucional</button>
-    <button type="button" data-set-view="inv"  aria-pressed="false">Investidores</button>
+    <button type="button" data-set-view="inst"  aria-pressed="true">Institucional</button>
+    <button type="button" data-set-view="inv"   aria-pressed="false">Investidores</button>
+    <button type="button" data-set-view="ideia" aria-pressed="false">Idealização</button>
   </div>
 </nav>
 
@@ -520,7 +575,7 @@ footer p{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.16em;t
       <div class="metric"><span class="est-tag">Estimativa</span><div class="big">R$ 225k – 410k<span style="font-size:14px;color:rgba(255,255,255,.5);"> /ano</span></div><div class="lbl">Receita bruta madura</div></div>
       <div class="metric"><span class="est-tag">Estimativa</span><div class="big">R$ 30k – 160k<span style="font-size:14px;color:rgba(255,255,255,.5);"> /ano</span></div><div class="lbl">Resultado operacional</div></div>
     </div>
-    <p class="bar-note rv" style="margin-top:26px;">Números reavaliados com custos de mercado 2026. Construir do zero sairia por <strong>R$ 2,55M – 3,35M</strong> — por isso comprar pronto é o caminho recomendado. Detalhes em <code>docs/CUSTOS-CONSTRUCAO.md</code> e <code>docs/MODELO-FINANCEIRO.md</code>.</p>
+    <p class="bar-note rv" style="margin-top:26px;">Números reavaliados com custos de mercado 2026. Construir do zero sairia por <strong>R$ 2,55M – 3,35M</strong> — por isso comprar pronto é o caminho recomendado. Detalhes em <code>docs/REFERENCIA.md</code>.</p>
   </div>
 </section>
 
@@ -612,6 +667,186 @@ footer p{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.16em;t
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════
+     VISÃO IDEALIZAÇÃO — o terreno (chácara 24.000 m² · ref. 8285)
+═══════════════════════════════════════════════════════════ -->
+
+<!-- ── o lugar / ficha rápida ── -->
+<section class="sec sec--kraft" data-view="ideia">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Idealização · O terreno</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Uma chácara de 24.000 m²<br><em>em Ibiúna</em></h2>
+      <p class="sec-lead rv">Terreno candidato avaliado como referência: quatro vezes o programa do RAÍZES, na mesma terra vermelha de Ibiúna — a ~70 km de São Paulo. Metade do conceito já está de pé.</p>
+    </div>
+    <div class="stat-grid" style="max-width:820px;">
+      <div class="rv"><div class="stat-val">24.000<em> m²</em></div><div class="stat-key">Área do terreno</div></div>
+      <div class="rv"><div class="stat-val">R$ 1,35<em> mi</em></div><div class="stat-key">Preço pedido (~R$ 56/m²)</div></div>
+      <div class="rv"><div class="stat-val">3<em> casas</em></div><div class="stat-key">11 quartos · 5 suítes</div></div>
+      <div class="rv"><div class="stat-val">2<em> lagos</em></div><div class="stat-key">+ piscina, campo, pomar</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── vista a pino (drone) ── -->
+<section class="sec sec--white" data-view="ideia">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Vista a pino · leitura do sobrevoo</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">O limite do terreno,<br><em>lido de cima</em></h2>
+      <p class="sec-lead rv">Frame do vídeo de drone com o contorno do lote. Sobre ele, a leitura de implantação: onde está o núcleo construído, para onde a terra cai e onde sobra área livre.</p>
+    </div>
+    <figure class="figure rv">
+      <img src="docs/terrenos/8285-chacara-ibiuna/video-frames/mapa-interpretado.jpg" alt="Vista aérea a pino do terreno com zonas e caimento anotados" loading="lazy">
+      <figcaption>Frame nadir com zonas e caimento anotados. Formato em cunha (ápice a Oeste, base larga a Leste); núcleo construído na porção alta Norte-Central; lago no ponto baixo Sul-Central; área aberta aproveitável a Leste.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── 4 zonas RAÍZES × realidade ── -->
+<section class="sec sec--cream" data-view="ideia">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Programa × realidade</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">As quatro zonas do RAÍZES,<br><em>testadas no terreno</em></h2>
+      <p class="sec-lead rv">Cada zona do conceito confrontada com o que a chácara já entrega. Status: <b style="color:#2f5a1f;">Atende</b> (já existe), <b style="color:var(--gold-ink);">Adaptar</b> (existe algo aproveitável), <b style="color:#8f4526;">Construir</b> (do zero).</p>
+    </div>
+    <div class="zones rv">
+      <div class="zone">
+        <div class="zone-top">
+          <span class="zone-num">Zona 01</span>
+          <span class="zone-name">Estar<span>convívio · fogo · mesa</span></span>
+          <span class="pill ok">majoritariamente atende</span>
+        </div>
+        <div class="zrows">
+          <div class="zrow-h">RAÍZES quer</div><div class="zrow-h">Terreno tem</div><div class="zrow-h">Status</div>
+          <div class="z-want">Casa sede · cozinha coletiva · 204 m²</div><div class="z-have">2 casas (11 quartos, 5 suítes, 3 salas)</div><div><span class="pill ok">Atende</span></div>
+          <div class="z-want">Salão gourmet · churrasqueira · forno · mesa 16</div><div class="z-have">Salão gourmet amplo c/ churrasqueira + forno de lenha</div><div><span class="pill ok">Atende</span></div>
+          <div class="z-want">Deck circular · fogo de chão · 180 m²</div><div class="z-have">Gazebo + área livre; fogo de chão a implantar</div><div><span class="pill mid">Adaptar</span></div>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-top">
+          <span class="zone-num">Zona 02</span>
+          <span class="zone-name">Corpo<span>piscina · esporte · bem-estar</span></span>
+          <span class="pill mid">adaptar</span>
+        </div>
+        <div class="zrows">
+          <div class="zrow-h">RAÍZES quer</div><div class="zrow-h">Terreno tem</div><div class="zrow-h">Status</div>
+          <div class="z-want">Piscina natural 24 m · tratamento biológico · vista serra</div><div class="z-have">Piscina de alvenaria + 2 lagos (base p/ piscina natural) · vista morros</div><div><span class="pill mid">Adaptar</span></div>
+          <div class="z-want">Beach tennis · quadra oficial · 289 m²</div><div class="z-have">Campo de futebol gramado (área p/ converter)</div><div><span class="pill mid">Adaptar</span></div>
+          <div class="z-want">Yoga · meditação · 140 m² · silêncio</div><div class="z-have">Sobra de área plana + mata; espaço a definir</div><div><span class="pill build">Construir</span></div>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-top">
+          <span class="zone-num">Zona 03</span>
+          <span class="zone-name">Viver<span>6 chalés privativos</span></span>
+          <span class="pill mid">parcial</span>
+        </div>
+        <div class="zrows">
+          <div class="zrow-h">RAÍZES quer</div><div class="zrow-h">Terreno tem</div><div class="zrow-h">Status</div>
+          <div class="z-want">6 chalés · 30 m² · quarto casal + banheiro + varanda</div><div class="z-have">2 casas c/ 11 quartos e 5 suítes já hospedam vários núcleos</div><div><span class="pill mid">Adaptar</span></div>
+          <div class="z-want">Unidades privativas espalhadas no lote</div><div class="z-have">Área aberta ampla (Leste) p/ implantar chalés novos</div><div><span class="pill build">Construir</span></div>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-top">
+          <span class="zone-num">Zona 04</span>
+          <span class="zone-name">Terra<span>horta · pomar · mata</span></span>
+          <span class="pill ok">atende com folga</span>
+        </div>
+        <div class="zrows">
+          <div class="zrow-h">RAÍZES quer</div><div class="zrow-h">Terreno tem</div><div class="zrow-h">Status</div>
+          <div class="z-want">Horta orgânica + pomar (~300 m²)</div><div class="z-have">Pomar e horta já existentes; solo de terra vermelha</div><div><span class="pill ok">Atende</span></div>
+          <div class="z-want">Reserva de mata nativa ~3.600 m² · trilhas</div><div class="z-have">Mata nativa nas bordas/encostas (área maior que a exigida)</div><div><span class="pill ok">Atende</span></div>
+          <div class="z-want">Agrofloresta · água p/ produção</div><div class="z-have">2 lagos + várzea = água disponível p/ irrigação</div><div><span class="pill ok">Atende</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── implantação (esboço) ── -->
+<section class="sec sec--white" data-view="ideia">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Implantação · esboço</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Onde cada coisa<br><em>entra no terreno</em></h2>
+      <p class="sec-lead rv">Sobreposição conceitual do programa na área aberta a Leste, aproveitando o que já existe. Fora de escala — serve para enxergar a lógica de ocupação antes do projeto executivo.</p>
+    </div>
+    <figure class="figure rv">
+      <img src="docs/terrenos/8285-chacara-ibiuna/video-frames/implantacao-solar.jpg" alt="Esboço conceitual do programa RAÍZES sobreposto ao terreno" loading="lazy">
+      <figcaption>Esboço conceitual: chalés, beach tennis, deck/fogo, yoga, lago → piscina natural, horta/pomar e reserva de mata sobre o terreno.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── leitura do terreno ── -->
+<section class="sec sec--kraft" data-view="ideia">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Leitura do terreno</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Relevo, água,<br><em>vegetação e acesso</em></h2>
+      <p class="sec-lead rv">O que as 55 fotos e o sobrevoo dizem sobre a terra — antes de qualquer projeto.</p>
+    </div>
+    <div class="read-grid rv">
+      <div class="read"><div class="tag">Relevo</div><h3>Patamar alto que cai para o lago</h3><p>Núcleo construído num platô com vista; a terra desce suavemente até o açude, que ocupa o ponto baixo. Casas assentadas em pilotis — boa drenagem. Declive trabalhável, não escarpado.</p></div>
+      <div class="read"><div class="tag">Água</div><h3>Dois lagos + várzea</h3><p>Recurso hídrico natural raro num lote de lazer: base pronta para a "piscina natural" e para a irrigação da agrofloresta. Verificar outorga / APP.</p></div>
+      <div class="read"><div class="tag">Vegetação &amp; área livre</div><h3>Muito pasto limpo para expandir</h3><p>Miolo gramado bem cuidado, palmeiras imperiais, jardins — e grandes faixas abertas a Leste, livres para novos chalés, quadra ou deck. Mata madura nas bordas.</p></div>
+      <div class="read"><div class="tag">Acesso</div><h3>Portão + alameda interna</h3><p>Entrada por portão de madeira e estrada interna de concreto até as casas. Rua asfaltada e iluminada no limite Oeste, próxima à rodovia e a comércio.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── veredito ── -->
+<section class="sec sec--forest dark" data-view="ideia">
+  <div class="wrap">
+    <p class="eyebrow rv">Veredito</p>
+    <span class="rule rv"></span>
+    <p class="quote serif rv" style="margin-top:26px;">Terreno generoso —<br>sobra terra para o RAÍZES <em>respirar.</em></p>
+    <p class="sec-lead rv" style="max-width:720px;margin-top:26px;">Com 24.000 m² por R$ 56/m², a chácara cabe o programa inteiro (5.850 m²) e ainda deixa margem para mais reserva de mata, mais chalés e áreas de silêncio. Metade do conceito já está de pé — casa sede, gourmet, pomar, mata e água. O trabalho vira <em>curadoria e adaptação</em>, não construção do zero. Antes de avançar, cobrir os pontos abaixo.</p>
+    <div class="checks rv">
+      <span class="check">Regularização das 3 edificações (habite-se)</span>
+      <span class="check">Outorga / APP dos lagos e nascentes</span>
+      <span class="check">Reserva legal / CAR</span>
+      <span class="check">Área construída (não informada)</span>
+      <span class="check">Levantamento planialtimétrico</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── galeria de fotos ── -->
+<section class="sec sec--navy dark" data-view="ideia">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Registro fotográfico · 55 fotos</p>
+      <span class="rule rv"></span>
+      <h2 class="serif sec-title rv">Alguns <em>recortes</em></h2>
+    </div>
+    <div class="gallery rv">
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-01.jpg" alt="Conjunto e relevo" loading="lazy"><figcaption>Casa principal, piscina e morros ao fundo</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-06.jpg" alt="Piscina" loading="lazy"><figcaption>Piscina e gazebo sobre o gramado em declive</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-05.jpg" alt="Salão gourmet" loading="lazy"><figcaption>Salão gourmet coberto com churrasqueira</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-15.jpg" alt="Forno de lenha" loading="lazy"><figcaption>Gourmet: forno de lenha e área de jogos</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-10.jpg" alt="Segunda casa" loading="lazy"><figcaption>Segunda casa (rosa) com jardins e buxinhos</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-35.jpg" alt="Piscina e entorno" loading="lazy"><figcaption>Piscina, deck de pedra, mata e morros</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-47.jpg" alt="Vista elevada" loading="lazy"><figcaption>Vista elevada: morros e lavouras ao fundo</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-48.jpg" alt="Terreno aberto" loading="lazy"><figcaption>Grande pasto aberto — área livre para expansão</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-51.jpg" alt="Campo de futebol" loading="lazy"><figcaption>Campo de futebol subindo até a mata</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-53.jpg" alt="Lago" loading="lazy"><figcaption>Lago / açude junto à mata densa</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-50.jpg" alt="Panorâmica" loading="lazy"><figcaption>Panorâmica do conjunto de casas e palmeiras</figcaption></figure>
+      <figure><img src="docs/terrenos/8285-chacara-ibiuna/fotos/foto-33.jpg" alt="Vista sob pilotis" loading="lazy"><figcaption>Piscina + gourmet vistos sob o pilotis</figcaption></figure>
+    </div>
+    <p class="src-note rv">Fonte · Anúncio Delmasso Imóveis (ref. 8285) · <a href="https://www.delmassoimoveis.com.br/imovel/8285" target="_blank" rel="noopener">delmassoimoveis.com.br/imovel/8285</a><br>55 fotos + vídeo de drone (GA Fotografia) em <code>docs/terrenos/8285-chacara-ibiuna/</code> · leitura completa no README da pasta · Coletado em 12/07/2026</p>
+  </div>
+</section>
+
 <!-- ════════════ CONTATO (shared) ════════════ -->
 <section id="contato">
   <div class="contato-bg" aria-hidden="true"></div>
@@ -673,7 +908,7 @@ footer p{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.16em;t
 
   /* init from localStorage (default: institucional) */
   let start = 'inst';
-  try { const s = localStorage.getItem(KEY); if(s === 'inst' || s === 'inv') start = s; } catch(e){}
+  try { const s = localStorage.getItem(KEY); if(s === 'inst' || s === 'inv' || s === 'ideia') start = s; } catch(e){}
   apply(start, false);
 
   btns.forEach(function(b){
