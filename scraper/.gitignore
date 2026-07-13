@@ -1,0 +1,11 @@
+node_modules/
+data/leads.json
+data/leads.*.json
+data/import-*.json
+data/media/
+data/probe/
+_cap.mjs
+.env
+*.log
+playwright-report/
+.cache/
