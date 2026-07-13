@@ -14,7 +14,7 @@ export const nome = 'ImovelWeb';
 
 const HOST = 'https://www.imovelweb.com.br';
 const TIPOS = ['chacaras-sitios-e-fazendas', 'terrenos']; // rural primeiro
-const MAX_MUNICIPIOS = 8;
+const MAX_MUNICIPIOS = 16;
 const RURAL = new Set(['Sorocaba/Ibiúna', 'Itapetininga', 'Vale do Ribeira', 'Mantiqueira', 'Circuito das Águas']);
 
 function urlBusca(tipo, citySlug, pagina) {
@@ -45,7 +45,8 @@ function card2partial(c, tipo) {
   const price = parsePrecoBrl(c.price) ?? parsePrecoBrl((text.match(/R\$\s*[\d.]+/) || [])[0]);
   const areaTxt = c.feats || (text.match(/[\d.]+\s*m²\s*tot/i) || text.match(/[\d.]+\s*m²/i) || [])[0] || '';
   const area = parseAreaM2(areaTxt);
-  const href = c.href ? (c.href.startsWith('http') ? c.href : HOST + c.href) : null;
+  const hrefRaw = c.href ? (c.href.startsWith('http') ? c.href : HOST + c.href) : null;
+  const href = hrefRaw ? hrefRaw.split('?')[0] : null; // tira params de tracking (?n_src=...)
   // cidade real do card (última parte de "Bairro, Cidade"); pode ser vizinha da buscada
   const cidade = c.loc ? c.loc.split(',').pop().trim() : null;
   return {

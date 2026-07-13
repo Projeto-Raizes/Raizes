@@ -37,11 +37,16 @@ function zap2partial(L) {
   const price = Number(venda.price) || null;
   const area = numArr(li.totalAreas) || numArr(li.usableAreas); // terra: prefere área total
   const pt = li.address?.point;
-  const href = L.link?.href || (typeof L.link === 'string' ? L.link : null);
-  const medias = (L.medias || li.medias || []).map(resolveMedia).filter(Boolean);
+  // a Glue API não devolve `link`; a URL /imovel/id-{id}/ redireciona p/ o anúncio canônico
+  const fonteUrl = `${HOST}/imovel/id-${li.id}/`;
+  // separa IMAGE de VIDEO — vídeos (YouTube etc.) vão para `videos`, não `fotos`
+  const rawMedias = L.medias || li.medias || [];
+  const ehImagem = (m) => (m?.type ? /image/i.test(m.type) : true) && !/youtu\.?be|youtube|vimeo/i.test(m?.url || '');
+  const fotos = rawMedias.filter(ehImagem).map(resolveMedia).filter(Boolean);
+  const videos = rawMedias.filter((m) => !ehImagem(m)).map((m) => ({ url: m?.url })).filter((v) => v.url);
   return {
     sourceId: String(li.id),
-    fonteUrl: href ? (href.startsWith('http') ? href : HOST + href) : null,
+    fonteUrl,
     titulo: li.title || null,
     tipoOriginal: (li.unitTypes || []).join('/') || null,
     descricao: li.description || '',
@@ -58,8 +63,9 @@ function zap2partial(L) {
     banheiros: numArr(li.bathrooms),
     vagas: numArr(li.parkingSpaces),
     estrutura: li.amenities || [],
-    fotos: medias,
-    fotosTotal: medias.length,
+    fotos,
+    fotosTotal: fotos.length,
+    videos,
     raw: { unitTypes: li.unitTypes, usageTypes: li.usageTypes, listingType: li.listingType },
   };
 }

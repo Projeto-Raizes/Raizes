@@ -92,11 +92,16 @@ export function makeLead(source, p = {}) {
 
 /** resolve distância a SP: coordenadas próprias > centroide da cidade. */
 export function resolveDistancia(lead) {
-  if (lead.coordenadas && lead.coordenadas.lat != null) {
-    return { km: distanciaSpKm(lead.coordenadas.lat, lead.coordenadas.lng), fonte: 'coordenadas' };
-  }
   const g = geocodeCidade(lead.cidade, lead.uf);
-  if (g) return { km: distanciaSpKm(g.lat, g.lng), fonte: 'cidade' };
+  const cidadeKm = g ? distanciaSpKm(g.lat, g.lng) : null;
+  if (lead.coordenadas && lead.coordenadas.lat != null) {
+    const km = distanciaSpKm(lead.coordenadas.lat, lead.coordenadas.lng);
+    // coordenadas "lixo" do publicador (perto demais de SP p/ um imóvel na cidade
+    // declarada) → cai para o centroide da cidade. Ex.: sítio em Nazaré marcado a 0,9 km.
+    if (cidadeKm != null && km < 10 && cidadeKm - km > 15) return { km: cidadeKm, fonte: 'cidade' };
+    return { km, fonte: 'coordenadas' };
+  }
+  if (cidadeKm != null) return { km: cidadeKm, fonte: 'cidade' };
   return { km: null, fonte: null };
 }
 
